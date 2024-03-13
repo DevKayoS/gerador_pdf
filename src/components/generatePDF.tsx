@@ -8,10 +8,14 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export function GeneratePDF() {
-  const [title, setTile] = useState("")
+  const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const [fontSize, setFonsize] = useState("12")
+  const [fontColor, setFontColor] = useState("#000")
+  cons [isBold, setIsBold] = useState(false)
 
   const generatePDF = () => {
+    
     const documentDefinition = {
       content : [
       {text: `Título: ${title}`},
@@ -28,7 +32,7 @@ export function GeneratePDF() {
         Titulo: 
         <input type="text"  className="outline-none px-2 bg-slate-600/20 rounded-md shadow-md shadow-black" 
         value={title}
-        onChange={(e) => setTile(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
         />
      </label>
      <label className="flex gap-3">
@@ -38,7 +42,7 @@ export function GeneratePDF() {
         onChange={(e) => setDescription(e.target.value)}
         />
      </label>
-      <TextStyleConfig/>
+      <TextStyleConfig fontSize={fontSize} setFonsize={setFonsize} fontColor={setFontColor} setFontColor={setFontColor} isBold={isBold} setIsBold={setIsBold}/>
       <ImageUpload/>
       <button className="bg-gradient-to-r w-32 flex items-center m-auto justify-center rounded-full  hover:bg-gradient-to-r hover:from-emerald-700 hover:to-violet-700"
       onClick={generatePDF}
