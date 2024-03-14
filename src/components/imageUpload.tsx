@@ -1,4 +1,19 @@
-export function ImageUpload() {
+interface ImageUploadProps {
+  setImage:  (image: string | null) => void;
+}
+
+export function ImageUpload({setImage}: ImageUploadProps) {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+
+    reader.readAsDataURL(file)
+
+    reader.onloadend = () => {
+     setImage(reader.result)
+    };
+  }
+
   return (
     <div className="flex ">
       <label>
@@ -8,7 +23,9 @@ export function ImageUpload() {
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
       file:bg-slate-50 file:text-violet-700
-      hover:file:bg-violet-100"/>
+      hover:file:bg-violet-100"
+      onChange={handleImageUpload}
+      />
      </label>
     </div>
   )

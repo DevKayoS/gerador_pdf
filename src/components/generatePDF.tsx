@@ -10,17 +10,28 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 export function GeneratePDF() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [fontSize, setFonsize] = useState("12")
+  const [fontSize, setFontsize] = useState("12")
   const [fontColor, setFontColor] = useState("#000")
-  cons [isBold, setIsBold] = useState(false)
+  const [isBold, setIsBold] = useState(false)
+  const [image, setImage] = useState(null)
 
   const generatePDF = () => {
-    
+    const customStyle = {
+      fontSize: parseInt(fontSize),
+      color: fontColor,
+      bold: isBold,
+    }
+
+
     const documentDefinition = {
       content : [
-      {text: `Título: ${title}`},
-      {text: `Descrição: ${description}`}
-      ]
+      {text: `Título: ${title}`, style: "customStyle" },
+      {text: `Descrição: ${description}`, style: "customStyle" },
+      image ? {image : image, width: 150} : {},
+      ],
+      styles: {
+        customStyle: customStyle
+      }
     }
 
     pdfMake.createPdf(documentDefinition).download()
@@ -42,8 +53,8 @@ export function GeneratePDF() {
         onChange={(e) => setDescription(e.target.value)}
         />
      </label>
-      <TextStyleConfig fontSize={fontSize} setFonsize={setFonsize} fontColor={setFontColor} setFontColor={setFontColor} isBold={isBold} setIsBold={setIsBold}/>
-      <ImageUpload/>
+      <TextStyleConfig fontSize={fontSize} setFontsize={setFontsize} fontColor={setFontColor} setFontColor={setFontColor} isBold={isBold} setIsBold={setIsBold}/>
+      <ImageUpload setImage={setImage}/>
       <button className="bg-gradient-to-r w-32 flex items-center m-auto justify-center rounded-full  hover:bg-gradient-to-r hover:from-emerald-700 hover:to-violet-700"
       onClick={generatePDF}
       >Gerar PDF 
