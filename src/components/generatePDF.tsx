@@ -27,7 +27,7 @@ export function GeneratePDF() {
       content : [
       {text: `Título: ${title}`, style: "customStyle" },
       {text: `Descrição: ${description}`, style: "customStyle" },
-      image ? {image : image, width: 150} : {},
+      image ? {image : image, width: 300} : {},
       ],
       styles: {
         customStyle: customStyle
